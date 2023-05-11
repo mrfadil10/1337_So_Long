@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:48:07 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/02 15:56:19 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/11 10:42:31 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_master
 	t_map	*map;
 	t_data	*data;
 	void	*mlx;
-	void	*win;
+	void	*mlx_win;
 	int		win_x;
 	int		win_y;
 	int		x;
@@ -90,8 +90,8 @@ typedef struct s_master
 	void	*e_wall;
 	void	*w_wall;
 	void	*o_wall;
-	void	*a_exit;
-	void	*u_exit;
+	void	*op_exit;
+	void	*cl_exit;
 }	t_master;
 
 void	*ft_calloc(size_t count, size_t size);
@@ -102,11 +102,46 @@ void	delete_array(t_master **game);
 void	delete_target(t_master *game);
 void	delete_game(t_master *game);
 
+t_map	*keep_data(int row_idx, char *line, t_map *last);
+void	get_data(char *line, int fd, int i, t_map **map);
 int		error(char *message);
 int		free_element(t_data *element);
 void	*null_error(char *message, t_master *game);
 void	place_at_player_up(t_master *game);
 void	place_at_player_down(t_master *game);
 void	check_data(t_master *game);
+void	collect_infos(t_master *game);
+void	check_x_wall(t_master *game);
+void	check_y_wall(t_master *game);
+void	check_dimension(int x, int y, t_master *game);
+int		check_flood(t_master *game, int x, int y);
+int		ft_strcmp(const char *s1, const char *s2);
 
+//putting active items
+
+void	put_player(int i, int row, t_master *game);
+void	put_collects(int i, int row, t_master *game);
+void	put_obstacles(int i, int row, t_master *game);
+void	put_unlock(int i, int row, t_master *game);
+void	put_exit(int i, int row, t_master *game);
+void	floors(int x, t_master *game);
+void	put_row_walls(t_master *game);
+void	put_col_walls(t_master *game);
+void	put_floor(t_master *game, int i, int row);
+void	catch_data(t_master *game);
+//void	put_corners(t_master *game);
+
+void	graph_mlx(t_master *game);
+
+int		move_up(t_master *game);
+int		move_down(t_master *game);
+int		move_right(t_master *game);
+int		move_left(t_master *game);
+
+void	player_up(t_master *game);
+void	player_down(t_master *game);
+void	player_right(t_master *game);
+void	player_left(t_master *game);
+int		key_hook(int key, t_master *game);
+int		x_exit(int keycode, t_master *game);
 #endif

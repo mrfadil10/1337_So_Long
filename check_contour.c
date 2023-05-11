@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:02:55 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/02 16:47:04 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:59:35 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_map	*keep_data(int row_idx, char *line, t_map *last)
 	return (map);
 }
 
-void	get_all_data(char *line, int fd, int i, t_map **map)
+void	get_data(char *line, int fd, int i, t_map **map)
 {
 	while (line)
 	{
@@ -69,5 +69,5 @@ void	check_y_wall(t_master *game)
 	lnt = game->map->lnt;
 	if (game->map->line[0] != '1' || game->map->line[lnt - 1] != '1')
 		null_error("Error\n Map isn't surrounded by wall\n", game);
-	
+	collect_infos(game);
 }

@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:34:30 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/02 22:50:23 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/11 22:47:14 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,13 @@ void	take_player_nd_exit(t_master *game, int i)
 	}
 }
 
-char	*ft_strchr(const char *str, int c)
+int	ft_nstrchr(const char *s, char c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	while (*s != c)
 	{
-		if (str[i] == (unsigned char)c)
-			return ((char *)str + i);
-		i++;
+		if (*s++ == '\0')
+			return (1);
 	}
-	if ((unsigned char)c == '\0')
-		return ((char *)&str[i]);
 	return (0);
 }
 
@@ -77,6 +71,10 @@ void	collect_infos(t_master *game)
 	i = 1;
 	while (game->map->line[i] && i < game->map->lnt)
 	{
+		if (ft_nstrchr("PE", game->map->line[i]) == 0)
+			take_player_nd_exit(game, i);
+		if (ft_nstrchr("PEC10", game->map->line[i]) == 1)
+			null_error("Error\n The player is not allowed in the map\n", game);
 		if (game->map->line[i] == 'C')
 		{
 			game->data->to_collect += 1;
@@ -90,10 +88,6 @@ void	collect_infos(t_master *game)
 				game->data->collectible = collect(game->data->to_collect,
 						i, game->map->y_index, NULL);
 		}
-		if (ft_strchr("PE", game->map->line[i] == 0))
-			take_player_nd_exit(game, i);
-		if (ft_strchr("PEC10", game->map->line[i]) == 1)
-			null_error("Error\n The player is not allowed in the map\n", game);
 		i++;
 	}
 }
