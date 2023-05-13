@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:48:07 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/11 10:42:31 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/12 19:32:24 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	check_y_wall(t_master *game);
 void	check_dimension(int x, int y, t_master *game);
 int		check_flood(t_master *game, int x, int y);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strrchr(const char *str, int c);
 
 //putting active items
 

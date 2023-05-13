@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 22:19:18 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/11 15:44:47 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/12 19:33:13 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	check_all(int argc, char **argv, t_master *game)
 
 	if (argc != 2)
 		null_error("Error\n", game);
-	str = ft_strchr(argv[0], '.');
+	str = ft_strrchr(argv[0], '.');
 	while (ft_strlen(str) != 4)
-		str = ft_strchr(str, '.');
+		str = ft_strrchr(str, '.');
 	if (ft_strcmp(str, ".ber") != 0)
 		null_error("Error\n Bad format.\n", game);
 	fd = open(argv[0], O_RDONLY);
@@ -97,19 +97,6 @@ t_master	*set_memory(void)
 	game->data = ft_calloc(1, sizeof(t_data));
 	return (game);
 }
-
-//int	main(void)
-//{
-//	int	fd;
-
-//	fd = open("map1.ber", O_RDONLY);
-//	char	*line = get_next_line(fd);
-//	while (line)
-//	{
-//		printf("%s", line);
-//		line = get_next_line(fd);
-//	}
-//}
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:04:31 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/07 21:40:27 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/12 19:30:32 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,28 @@ void	*ft_memset(void *b, int c, size_t len)
 //		i++;
 //	return (i);
 //}
+
+char	*ft_strrchr(const char *str, int c)
+{
+	int				i;
+	int				j;
+	unsigned char	ch;
+
+	i = 0;
+	j = 0;
+	ch = (unsigned char)c;
+	while (str[i])
+	{
+		if (str[i] == ch)
+			j = i;
+		i++;
+	}
+	if (str[i] == '\0' && ch == 0)
+		return ((char *)str + i);
+	else if (j > 0 || (j == 0 && str[j] == ch))
+		return ((char *)str + j);
+	return (NULL);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
