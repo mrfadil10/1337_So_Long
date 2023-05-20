@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:02:55 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/09 14:59:35 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/14 15:40:07 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_data(char *line, int fd, int i, t_map **map)
 void	check_dimension(int x, int y, t_master *game)
 {
 	if (x < 5 || y < 3)
-		null_error("Error\n, Map is too small\n", game);
+		null_error("\033[1;33mError\nMap is too small\n", game);
 }
 
 void	check_x_wall(t_master *game)
@@ -52,7 +52,7 @@ void	check_x_wall(t_master *game)
 	while (i != game->map->lnt)
 	{
 		if (game->map->line[i] != '1')
-			null_error("Error\n Map isn't surrounded by wall\n", game);
+			null_error("\033[1;33mError\nMap isn't surrounded by wall\n", game);
 		i++;
 	}
 	if (game->map->y_index == game->data->max_row)
@@ -68,6 +68,6 @@ void	check_y_wall(t_master *game)
 
 	lnt = game->map->lnt;
 	if (game->map->line[0] != '1' || game->map->line[lnt - 1] != '1')
-		null_error("Error\n Map isn't surrounded by wall\n", game);
+		null_error("\033[1;33mError\nMap isn't surrounded by wall\n", game);
 	collect_infos(game);
 }

@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:09:14 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/12 14:45:07 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:44:48 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	catched_collectible(t_master *game)
 
 void	unlock_door(t_master *game)
 {
-	game->data->trig_exit = 1;
+	game->data->active_exit = 1;
 	put_unlock(game->data->exit.column, game->data->exit.row, game);
 }
 
@@ -65,7 +65,7 @@ void	catch_data(t_master *game)
 	}
 	if (game->map->line[game->data->p_x] == 'E')
 	{
-		if (game->data->trig_exit == 1)
+		if (game->data->active_exit == 1)
 		{
 			delete_game(game);
 			exit (0);

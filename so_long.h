@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:48:07 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/12 19:32:24 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/19 17:04:06 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 
 # include "mlx.h"
 # include "get_next_line_bonus.h"
+# include "./ft_printf/ft_printf.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdint.h>
 # include <fcntl.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE BUFSIZ
-# endif
-
-# if BUFFER_SIZE > 9223372036854775806
-#  undef BUFFER_SIZE
-#  define BUFFER_SIZE 0
-# endif
 
 typedef struct s_map
 {
@@ -40,15 +32,15 @@ typedef struct s_map
 	struct s_map	*next;
 }	t_map;
 
-typedef struct s_target
+typedef struct s_piece
 {
 	int				x;
 	int				y;
 	int				num;
 	int				taken;
-	struct s_target	*prev;
-	struct s_target	*next;
-}	t_target;
+	struct s_piece	*prev;
+	struct s_piece	*next;
+}	t_piece;
 
 typedef struct s_infos
 {
@@ -59,14 +51,14 @@ typedef struct s_infos
 
 typedef struct s_data
 {
-	int				max_row;
 	int				p_x;
 	int				p_y;
+	int				max_row;
 	int				moves_count;
-	int				trig_exit;
+	int				active_exit;
 	int				to_collect;
 	int				collected;
-	t_target		*collectible;
+	t_piece			*collectible;
 	t_infos			player;
 	t_infos			exit;
 }	t_data;
@@ -84,12 +76,12 @@ typedef struct s_master
 	char	**path;
 	void	*player;
 	void	*floor;
+	void	*obs;
 	void	*collect;
 	void	*n_wall;
 	void	*s_wall;
 	void	*e_wall;
 	void	*w_wall;
-	void	*o_wall;
 	void	*op_exit;
 	void	*cl_exit;
 }	t_master;
@@ -117,6 +109,7 @@ void	check_dimension(int x, int y, t_master *game);
 int		check_flood(t_master *game, int x, int y);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *str, int c);
+void	ft_putnbr_fd(int nb, int fd);
 
 //putting active items
 
@@ -130,19 +123,21 @@ void	put_row_walls(t_master *game);
 void	put_col_walls(t_master *game);
 void	put_floor(t_master *game, int i, int row);
 void	catch_data(t_master *game);
-//void	put_corners(t_master *game);
-
 void	graph_mlx(t_master *game);
+
+// moves
 
 int		move_up(t_master *game);
 int		move_down(t_master *game);
 int		move_right(t_master *game);
 int		move_left(t_master *game);
-
 void	player_up(t_master *game);
 void	player_down(t_master *game);
 void	player_right(t_master *game);
 void	player_left(t_master *game);
+
 int		key_hook(int key, t_master *game);
 int		x_exit(int keycode, t_master *game);
+void	ft_error(char *message, char *file, int line);
+
 #endif

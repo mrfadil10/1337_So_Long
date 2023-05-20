@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:17:50 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/11 23:37:04 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:21:38 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	floors(int x, t_master *game)
 	y = 64;
 	game->floor = mlx_xpm_file_to_image(game->mlx, "xpm/floor_2.0.xpm",
 			&game->x, &game->y);
-	if (game->floor == NULL)
+	if (!(game->floor))
 	{
 		free_element(game->floor);
-		exit(1);
+		ft_error("\033[1;31mError: can't load xpm/floor_2.0.xpm!",
+			__FILE__, __LINE__);
 	}
 	while (y <= game->win_y - 64 && i <= (game->data->max_row - 1))
 	{
@@ -80,8 +81,6 @@ void	graph_mlx(t_master *game)
 	position = 64;
 	put_row_walls(game);
 	put_col_walls(game);
-	game->o_wall = mlx_xpm_file_to_image(game->mlx, "xpm/Obs.xpm",
-			&game->x, &game->y);
 	floors(position, game);
 	set_active_items(game);
 }
