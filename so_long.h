@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:48:07 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/19 17:04:06 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/22 00:38:13 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,5 @@ void	player_left(t_master *game);
 int		key_hook(int key, t_master *game);
 int		x_exit(int keycode, t_master *game);
 void	ft_error(char *message, char *file, int line);
-
+int		flood_tools(char **map, t_master *game, int x, int y);
 #endif

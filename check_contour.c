@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:02:55 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/14 15:40:07 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/21 17:33:59 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	check_x_wall(t_master *game)
 void	check_y_wall(t_master *game)
 {
 	int		lnt;
+	int		i;
 
+	i = 1;
 	lnt = game->map->lnt;
 	if (game->map->line[0] != '1' || game->map->line[lnt - 1] != '1')
 		null_error("\033[1;33mError\nMap isn't surrounded by wall\n", game);

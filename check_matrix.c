@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:46:18 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/11 22:39:00 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/22 00:37:33 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,49 @@ char	**dup_map(t_master *game)
 	return (game->path);
 }
 
-int	check_flood(t_master *game, int x, int y)
+void	recursion(char **map, t_master *game, int x, int y)
 {
-	static char	**map = NULL;
+	flood_tools(map, game, x + 1, y);
+	flood_tools(map, game, x - 1, y);
+	flood_tools(map, game, x, y + 1);
+	flood_tools(map, game, x, y - 1);
+}
+
+int	flood_tools(char **map, t_master *game, int x, int y)
+{
 	static int	pieces = -1;
 
 	if (pieces == -1)
 		pieces = game->data->to_collect + 1;
-	if (!map)
-		map = dup_map(game);
 	if (x >= 0 && x < game->map->lnt & y >= 0 && y < game->data->max_row - 1)
 	{
 		if (map[y][x] == 'F')
 			return (pieces);
 		else
 		{
-			if (map[y][x] == 'C' || map[y][x] == 'E')
+			if (map[y][x] == 'C')
 				pieces--;
+			else if (map[y][x] == 'E')
+			{
+				pieces--;
+				return (map[y][x] = 'F', pieces);
+			}
 			else if (map[y][x] == '1')
 				return (pieces);
 			map[y][x] = 'F';
 		}
-		check_flood(game, x + 1, y);
-		check_flood(game, x - 1, y);
-		check_flood(game, x, y + 1);
-		check_flood(game, x, y - 1);
+		recursion(map, game, x, y);
 	}
+	return (pieces);
+}
+
+int	check_flood(t_master *game, int x, int y)
+{
+	static char	**map = NULL;
+	int			pieces;
+
+	if (!map)
+		map = dup_map(game);
+	pieces = flood_tools(map, game, x, y);
 	return (pieces);
 }

@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 22:19:18 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/19 15:24:40 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/21 16:15:55 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	check_all(int argc, char **argv, t_master *game)
 	if (!hidden_file(argv))
 		null_error("\033[1;33mError\nBad format.\n", game);
 	str = ft_strrchr(argv[0], '.');
+	if (!str)
+		null_error("\033[1;33mError\nBad format.\n", game);
 	if (ft_strcmp(str, ".ber") != 0)
 		null_error("\033[1;33mError\nBad format.\n", game);
 	while (ft_strlen(str) != 4)
