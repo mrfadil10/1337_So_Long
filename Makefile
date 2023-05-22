@@ -6,7 +6,7 @@
 #    By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:52:25 by mfadil            #+#    #+#              #
-#    Updated: 2023/05/22 00:40:03 by mfadil           ###   ########.fr        #
+#    Updated: 2023/05/22 14:30:27 by mfadil           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 NAME	= so_long
 O_PATH	= obj/
+
+PRINTF_LIB = ft_printf/libftprintf.a
 
 
 SRC		=		check_contour.c \
@@ -36,23 +38,20 @@ SRC		=		check_contour.c \
 OBJ		= $(SRC:.c=.o)
 OBJS	= $(addprefix $(O_PATH), $(OBJ))
 
-all: $(O_PATH) $(NAME)
+all: $(NAME)
 
 $(O_PATH)%.o: %.c so_long.h get_next_line_bonus.h ./ft_printf/ft_printf.h
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
-$(O_PATH):
-	mkdir $(O_PATH)
 
-$(NAME): $(OBJS) printf
-	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) ft_printf/libftprintf.a
+$(NAME): $(OBJS) $(PRINTF_LIB)
+	$(CC) $(OBJS) ft_printf/libftprintf.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
-	rm -rf $(O_PATH)
-	rm -rf *.o
+	rm -rf ./obj/*.o
 	make -C ft_printf clean
 
-printf :
+$(PRINTF_LIB) :
 	make -C ft_printf
 
 fclean: clean

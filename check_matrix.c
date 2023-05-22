@@ -6,7 +6,7 @@
 /*   By: mfadil <mfadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:46:18 by mfadil            #+#    #+#             */
-/*   Updated: 2023/05/22 00:37:33 by mfadil           ###   ########.fr       */
+/*   Updated: 2023/05/22 10:45:40 by mfadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,10 @@ int	flood_tools(char **map, t_master *game, int x, int y)
 
 int	check_flood(t_master *game, int x, int y)
 {
-	static char	**map = NULL;
-	int			pieces;
+	char	**map;
+	int		pieces;
 
-	if (!map)
-		map = dup_map(game);
+	map = dup_map(game);
 	pieces = flood_tools(map, game, x, y);
 	return (pieces);
 }
